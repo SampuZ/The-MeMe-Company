@@ -2,5 +2,5 @@ package sompuz.memecompany.login;
 
 public interface LoginCallback {
     void onLoginSuccess(UserData userData);
-    void onLoginFailure();
+    void onLoginFailure(String response);
 }

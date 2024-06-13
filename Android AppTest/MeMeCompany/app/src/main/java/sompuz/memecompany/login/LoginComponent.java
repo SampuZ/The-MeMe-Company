@@ -36,7 +36,6 @@ public class LoginComponent {
             @Override
             public void run() {
                 try {
-//                    Thread.sleep(1000);
                     // URL of your server for authentication
                     URL url = new URL("http://10.172.32.107:8085/api/login");
 
@@ -46,6 +45,7 @@ public class LoginComponent {
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setDoOutput(true);
+                    connection.setConnectTimeout(5000);
 
                     // Build the JSON object
                     JSONObject jsonParams = new JSONObject();
@@ -67,7 +67,11 @@ public class LoginComponent {
                         response += line;
                     }
 
-                    loginCallback.onLoginSuccess(new UserData(response,""));
+                    if(response.contains("Welcome")){// Successful login
+                        loginCallback.onLoginSuccess(new UserData(response,""));
+                    } else {// Failed login
+                        loginCallback.onLoginFailure(response);
+                    }
 
                     // Close streams
                     outputStream.close();
@@ -77,7 +81,7 @@ public class LoginComponent {
                     connection.disconnect();
                 } catch (IOException e) {
                     Log.e("Sampu", "Error: " + e.getMessage());
-                    loginCallback.onLoginFailure();
+                    loginCallback.onLoginFailure(e.getMessage());
                 } catch (JSONException e) {
                     throw new RuntimeException(e);
                 }

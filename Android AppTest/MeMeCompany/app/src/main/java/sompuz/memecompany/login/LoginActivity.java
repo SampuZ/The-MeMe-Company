@@ -62,12 +62,12 @@ public class LoginActivity extends AppCompatActivity implements LoginCallback {
     }
 
     @Override
-    public void onLoginFailure() {
+    public void onLoginFailure(String response) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 loadingProgressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), R.string.login_failed, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), response, Toast.LENGTH_SHORT).show();
             }
         });
 
