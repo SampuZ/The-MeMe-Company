@@ -20,8 +20,7 @@ app.post('/api/login', (req, res) => {
     req.on('end', function() {
 		console.log(body)
 		jsonData=JSON.parse(body)
-		//username=jsonData.uid
-		//password=jsonData.pwd
+		
 		username=jsonData.username
 		password=jsonData.password
 		console.log('Body: ' + username+" "+password)
