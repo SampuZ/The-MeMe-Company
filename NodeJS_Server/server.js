@@ -41,7 +41,7 @@ app.get('/getData', (req, res) => {
  });
 
 
-const port = 8085;
+const port = process.env.PORT || 8085;
 
 const server = app.listen(port, function () {
     console.log('Server listening on port ' + port);
